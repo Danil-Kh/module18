@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:margin="http://java.sun.com/xml/ns/persistence/orm">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -13,8 +13,13 @@
 <body>
 <form action="/edit" method="post">
     <input type="hidden" id="noteId" name="noteId" value="">
+    <div class="alert alert-light" role="alert">
+        <h5>Select the line you want to edit</h5>
+    </div>
 
-    <table>
+
+
+    <table style="margin: auto">
         <tr>
             <th>Title </th>
             <th> Content</th>
@@ -28,43 +33,59 @@
         </tr>
 
     </table>
-    <div class="alert alert-primary" role="alert">
-        Select the line you want to edit
-    </div>
-    <div class="mb-3">
+
+    <div class="mb-3" style="margin-top: 12px">
         <input type="text" class="form-control" id="titleText" name="title" placeholder="Title">
     </div>
     <div class="mb-3">
-        <input type="text" class="form-control" id="contentText" name="content" placeholder="Content">
+        <textarea type="text" class="form-control" id="contentText" name="content" placeholder="Content" rows="5"></textarea>
     </div>
 
-    <button type="submit" class="btn btn-secondary">Save</button>
 
+    <div style="display: flex; justify-content: center; gap: 10px; margin-top: 20px;">
+        <form action="/save" method="post">
+            <button type="submit" class="btn btn-success">Save</button>
+        </form>
+        <form action="/delete" method="post">
+            <input type="hidden" id="deleteNoteId" name="noteId" value="">
+            <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+    </div>
 
+    <script>
+        function displayRow(row) {
+            const titleTextarea = document.getElementById('titleText');
+            const contentTextarea = document.getElementById('contentText');
+            const hiddenIdField = document.getElementById('noteId');
 
+            const title = row.cells[0].textContent;
+            const content = row.cells[1].textContent;
+            const noteId = row.getAttribute('data-note-id');
 
-</form>
-    <form action="/delete" method="post">
-        <input type="hidden" id="deleteNoteId" name="noteId" value="">
-        <button type="submit" class="btn btn-secondary">Delete</button>
-    </form>
+            titleTextarea.value = title;
+            contentTextarea.value = content;
+            hiddenIdField.value = noteId;
+            deleteNoteId.value = noteId;
+        }
+    </script>
 
-<script>
-    function displayRow(row) {
-        const titleTextarea = document.getElementById('titleText');
-        const contentTextarea = document.getElementById('contentText');
-        const hiddenIdField = document.getElementById('noteId');
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
 
-        const title = row.cells[0].textContent;
-        const content = row.cells[1].textContent;
-        const noteId = row.getAttribute('data-note-id');
+        table {
+            border-collapse: collapse;
+        }
 
-        titleTextarea.value = title;
-        contentTextarea.value = content;
-        hiddenIdField.value = noteId;
-        deleteNoteId.value = noteId;
-    }
-</script>
-
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+        }
+    </style>
 </body>
 </html>

@@ -19,7 +19,9 @@ public class NoteController {
     public ModelAndView createNote(
             @RequestParam String title,
             @RequestParam String content) {
-        Note note = new Note(title, content);
+        Note note = new Note();
+        note.setTitle(title);
+        note.setContent(content);
         noteService.addNote(note);
 
         return new ModelAndView("index").addObject("message", note);
@@ -35,7 +37,9 @@ public class NoteController {
     }
     @PostMapping("/edit")
     public ModelAndView editNote(@RequestParam("noteId") Long id, @RequestParam String title, @RequestParam String content) {
-        Note note = new Note(title, content);
+        Note note = new Note();
+        note.setTitle(title);
+        note.setContent(content);
         note.setId(id);
         noteService.updateNote(note);
         return new ModelAndView("redirect:/list");
