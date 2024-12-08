@@ -1,6 +1,8 @@
-package org.example.module15;
+package org.example.module15.services;
 
 import lombok.RequiredArgsConstructor;
+import org.example.module15.entities.Note;
+import org.example.module15.repositories.NoteRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -8,7 +10,6 @@ import java.util.*;
 @RequiredArgsConstructor
 @Service
 public class NoteService {
-    private final Random idGenerator = new Random();
     private final NoteRepository noteRepository;
 
     public List<Note> listAllNotes() {

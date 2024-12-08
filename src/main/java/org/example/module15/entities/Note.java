@@ -1,4 +1,4 @@
-package org.example.module15;
+package org.example.module15.entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;

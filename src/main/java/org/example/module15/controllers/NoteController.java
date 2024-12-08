@@ -1,8 +1,8 @@
 package org.example.module15.controllers;
 
 import lombok.AllArgsConstructor;
-import org.example.module15.Note;
-import org.example.module15.NoteService;
+import org.example.module15.entities.Note;
+import org.example.module15.services.NoteService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
