@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @AllArgsConstructor
 public class NoteController {
-    NoteService noteService;
+   private final NoteService noteService;
     @PostMapping("/createNote")
     public ModelAndView createNote(
             @RequestParam String title,
@@ -22,19 +22,23 @@ public class NoteController {
         Note note = new Note();
         note.setTitle(title);
         note.setContent(content);
-        noteService.addNote(note);
+        //TODO: Сдеалать не хардкод
+        noteService.addNote(note, "admin");
 
         return new ModelAndView("index").addObject("message", note);
     }
     @GetMapping("/list")
     public ModelAndView getAllNotes(Model model) {
+        //TODO: Сдеалать не хардкод
         model.addAttribute("action", "list");
-        return new ModelAndView("index").addObject("listAllNotes", noteService.listAllNotes());
+        return new ModelAndView("index").addObject("listAllNotes", noteService.listAllNotes("admin"));
     }
     @GetMapping("/editPages")
     public ModelAndView rediredEditPages(Model model) {
-      return new ModelAndView("edit").addObject("listAllNotes", noteService.listAllNotes());
+        //TODO: Сдеалать не хардкод
+      return new ModelAndView("edit").addObject("listAllNotes", noteService.listAllNotes("admin"));
     }
+    // TODO: Есть предположение что надо сюда добавлять параметер user_id
     @PostMapping("/edit")
     public ModelAndView editNote(@RequestParam("noteId") Long id, @RequestParam String title, @RequestParam String content) {
         Note note = new Note();
