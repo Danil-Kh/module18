@@ -15,18 +15,16 @@ public class NoteService {
     private final UserService userService;
 
     public List<Note> listAllNotes(String username) {
-        return noteRepository.getUserNotes(username);
+
+        return noteRepository.getUserNotes(userService.findByUserName(username).getId());
     }
     public void deleteById(long id){
        noteRepository.deleteById(id);
     }
     public void updateNote(Note note) {
-      noteRepository.save(note);
-    }
-//    public Optional<Note> getNoteById(long id){
-//      return noteRepository.findById(id);
-//    }
+        noteRepository.save(note);
 
+    }
     public Note addNote(Note note, String username) {
         User user = userService.findByUserName(username);
         Note createdNote = noteRepository.save(Note.builder()

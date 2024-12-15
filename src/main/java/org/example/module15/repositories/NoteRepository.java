@@ -12,7 +12,6 @@ import java.util.Optional;
 public interface NoteRepository extends CrudRepository<Note, Long> {
     @Override
     Optional<Note> findById(Long aLong);
-//TODO: Урать хардкод
-    @Query(nativeQuery = true, value = "SELECT * FROM notes n WHERE n.user_id = 15")
-    List<Note> getUserNotes(String username);
+    @Query(nativeQuery = true, value = "SELECT * FROM notes n WHERE n.user_id = :userId")
+    List<Note> getUserNotes(Long userId);
 }

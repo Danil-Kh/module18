@@ -6,6 +6,7 @@ import lombok.*;
 
 @Entity()
 @Table(name = "notes")
+@Data
 @Getter
 @Setter
 @Builder
