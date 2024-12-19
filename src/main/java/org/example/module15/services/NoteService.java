@@ -25,6 +25,10 @@ public class NoteService {
         noteRepository.save(note);
 
     }
+    public boolean isValidUserNote(Note note, String username) {
+        List<Long> noteIds = noteRepository.getUserNoteIds(userService.findByUserName(username).getId());
+        return noteIds.contains(note.getId());
+    }
     public Note addNote(Note note, String username) {
         User user = userService.findByUserName(username);
         Note createdNote = noteRepository.save(Note.builder()

@@ -14,4 +14,6 @@ public interface NoteRepository extends CrudRepository<Note, Long> {
     Optional<Note> findById(Long aLong);
     @Query(nativeQuery = true, value = "SELECT * FROM notes n WHERE n.user_id = :userId")
     List<Note> getUserNotes(Long userId);
+    @Query(nativeQuery = true, value = "SELECT id FROM notes n where n.user_id = :userId")
+    List<Long> getUserNoteIds(Long userId);
 }
