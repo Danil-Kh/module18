@@ -2,19 +2,16 @@ package org.example.module15.controllers;
 
 import lombok.AllArgsConstructor;
 import org.example.module15.entities.Note;
-import org.example.module15.entities.User;
 import org.example.module15.services.NoteService;
 import org.example.module15.services.UserService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
-import java.security.Principal;
-
+import java.util.List;
 
 @Controller
 @AllArgsConstructor
@@ -23,20 +20,16 @@ public class NoteController {
    private final UserService userService;
 
     @PostMapping("/createNote")
-    public ResponseEntity<Object> createNote(
-            @RequestBody Note note,
-            @AuthenticationPrincipal UserDetails userDetails) {
+    public ResponseEntity<Note> createNote(@RequestBody Note note,
+                                             @AuthenticationPrincipal UserDetails userDetails) {
 
-        if (note.getTitle().isBlank()) {
-            return ResponseEntity.badRequest().body("Unable to save note with empty title");
-        }
         noteService.addNote(note, userDetails.getUsername());
 
-        return ResponseEntity.ok(note);
+        return ResponseEntity.status(HttpStatus.CREATED).body(note);
     }
 
     @GetMapping("/list")
-    public ResponseEntity<Object> getAllNotes(@AuthenticationPrincipal UserDetails userDetails) {
+    public ResponseEntity<List<Note>> getAllNotes(@AuthenticationPrincipal UserDetails userDetails) {
         return ResponseEntity.ok(noteService.listAllNotes(userDetails.getUsername()));
 
     }
@@ -45,26 +38,17 @@ public class NoteController {
            return ResponseEntity.ok(noteService.listAllNotes(userDetails.getUsername()));
     }
     @PostMapping("/edit")
-    public ResponseEntity<Object> editNote(@AuthenticationPrincipal UserDetails userDetails, @RequestBody Note note) {
-        note.setUser(userService.findByUserName(userDetails.getUsername()));
-            if(note.getId() == null) {
-                return ResponseEntity.badRequest().body("Unable to edit note with empty id");
-            }
-            if (!noteService.isValidUserNote(note, userDetails.getUsername())) {
-                return ResponseEntity.badRequest().body("Unable to edit note with such id not found");
-            }
-            if (note.getTitle().isBlank()) {
-                return ResponseEntity.badRequest().body("Unable to save note with empty title");
-            }
-        noteService.updateNote(note);
+    public ResponseEntity<Object> editNote(@AuthenticationPrincipal UserDetails userDetails,
+                                           @RequestBody Note note) {
+        noteService.updateNote(note, userDetails);
         return ResponseEntity.ok(note);
     }
     @PostMapping("/delete")
-    public ResponseEntity<Object> deleteNote(
-            @RequestParam(name = "Number") Long noteId) {
+    public ResponseEntity<String> deleteNote(
+            @RequestParam(name = "Number") Long noteId, @AuthenticationPrincipal UserDetails userDetails) {
 
-       noteService.deleteById(noteId);
-       return ResponseEntity.ok().build();
+       noteService.deleteById(noteId, userDetails);
+       return ResponseEntity.ok("Note successfully deleted");
     }
 
 }

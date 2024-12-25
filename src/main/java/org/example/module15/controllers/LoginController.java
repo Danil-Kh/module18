@@ -22,7 +22,6 @@ public class LoginController {
     @PostMapping("/login")
     public ResponseEntity<String> loginUser(@RequestBody User user) {
 
-
         UsernamePasswordAuthenticationToken authInputToken =
                 new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());
 
