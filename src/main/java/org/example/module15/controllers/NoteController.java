@@ -33,12 +33,8 @@ public class NoteController {
         return ResponseEntity.ok(noteService.listAllNotes(userDetails.getUsername()));
 
     }
-    @GetMapping("/editPages")
-    public ResponseEntity<Object>  rediredEditPages(@AuthenticationPrincipal UserDetails userDetails) {
-           return ResponseEntity.ok(noteService.listAllNotes(userDetails.getUsername()));
-    }
     @PostMapping("/edit")
-    public ResponseEntity<Object> editNote(@AuthenticationPrincipal UserDetails userDetails,
+    public ResponseEntity<Note> editNote(@AuthenticationPrincipal UserDetails userDetails,
                                            @RequestBody Note note) {
         noteService.updateNote(note, userDetails);
         return ResponseEntity.ok(note);
