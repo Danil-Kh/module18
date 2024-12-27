@@ -29,8 +29,8 @@ class NoteServiceTest {
     private UserService userService;
 
     @Test
-    void addNoteSuccessfullyTest() { //TODO: Разобрать тест на составляющие
-        // Arrange: Setup mocks and input data
+    void addNoteSuccessfullyTest() {
+
         String username = "testUser";
         User mockUser = new User();
         mockUser.setUsername(username);
@@ -39,16 +39,13 @@ class NoteServiceTest {
         inputNote.setTitle("Test Title");
         inputNote.setContent("Test Content");
 
-        // Stub userService behavior
-        when(userService.findByUserName(username)).thenReturn(mockUser); //TODO: Понят почему тут такое поведение
+        when(userService.findByUserName(username)).thenReturn(mockUser);
 
-        // Act: Execute the method under test
+
         noteService.addNote(inputNote, username);
 
-        // Assert: Verify interactions with mocks
         verify(userService).findByUserName(username);
 
-        // Capture the argument passed to noteRepository.save()
         ArgumentCaptor<Note> noteCaptor = ArgumentCaptor.forClass(Note.class);
         verify(noteRepository).save(noteCaptor.capture());
 

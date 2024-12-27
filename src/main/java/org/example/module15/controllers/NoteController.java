@@ -33,13 +33,13 @@ public class NoteController {
         return ResponseEntity.ok(noteService.listAllNotes(userDetails.getUsername()));
 
     }
-    @PostMapping("/edit")
+    @PutMapping("/edit")
     public ResponseEntity<Note> editNote(@AuthenticationPrincipal UserDetails userDetails,
                                            @RequestBody Note note) {
         noteService.updateNote(note, userDetails);
         return ResponseEntity.ok(note);
     }
-    @PostMapping("/delete")
+    @DeleteMapping("/delete")
     public ResponseEntity<String> deleteNote(
             @RequestParam(name = "Number") Long noteId, @AuthenticationPrincipal UserDetails userDetails) {
 
