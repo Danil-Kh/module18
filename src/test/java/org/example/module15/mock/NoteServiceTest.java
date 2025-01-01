@@ -55,6 +55,20 @@ class NoteServiceTest {
         assertEquals("Test Title", savedNote.getTitle());
         assertEquals("Test Content", savedNote.getContent());
     }
+    @Test
+    void addNoteThrowsExceptionWhenTitleIsBlank() {
+        Note inputNote = new Note();
+        inputNote.setTitle("");
+        inputNote.setContent("Test Content");
+
+        UnableAddNote exception = assertThrows(
+                UnableAddNote.class, () -> noteService.addNote(inputNote, "testUser")
+        );
+        assertEquals("Note title is blank", exception.getMessage());
+
+
+        verifyNoInteractions(noteRepository);
+    }
 
 
 }
