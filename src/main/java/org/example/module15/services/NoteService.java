@@ -1,6 +1,5 @@
 package org.example.module15.services;
 
-import com.zaxxer.hikari.HikariConfig;
 import lombok.RequiredArgsConstructor;
 import org.example.module15.entities.Note;
 import org.example.module15.entities.User;
@@ -8,7 +7,6 @@ import org.example.module15.exceptions.UnableAddNote;
 import org.example.module15.exceptions.UnableDeleteNote;
 import org.example.module15.exceptions.UnableUpdateNote;
 import org.example.module15.repositories.NoteRepository;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
