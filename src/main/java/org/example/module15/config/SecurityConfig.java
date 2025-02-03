@@ -1,4 +1,4 @@
-package org.example.module15;
+package org.example.module15.config;
 
 import lombok.RequiredArgsConstructor;
 import org.example.module15.entities.User;
@@ -28,6 +28,8 @@ public class SecurityConfig {
                         authorizeRequests
                                 .requestMatchers("/login").permitAll()
                                 .requestMatchers("/register").permitAll()
+                                .requestMatchers("/swagger-ui.html", "/swagger-resources/**", "/api-docs/**",
+                                        "/swagger-ui/**", "/s/", "/s/{shortCode}", "/v3/**").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .formLogin(login -> login

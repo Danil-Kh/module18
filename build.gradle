@@ -36,6 +36,8 @@ dependencies {
     testImplementation 'org.springframework.security:spring-security-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     runtimeOnly group: 'org.flywaydb', name: 'flyway-database-postgresql', version: '11.0.0'
+    implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.2.0'
+
 
 
 

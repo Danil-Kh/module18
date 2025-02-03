@@ -1,5 +1,6 @@
 package org.example.module15.controllers;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.example.module15.entities.Note;
 import org.example.module15.entities.User;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 
-
+@Tag(name = "note controller")
 @Controller
 @AllArgsConstructor
 public class NoteController {

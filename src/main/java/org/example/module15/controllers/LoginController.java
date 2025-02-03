@@ -1,5 +1,7 @@
 package org.example.module15.controllers;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.tags.Tags;
 import lombok.AllArgsConstructor;
 import org.example.module15.entities.User;
 import org.example.module15.services.UserService;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+@Tag(name = "login controller")
 @Controller
 @AllArgsConstructor
 public class LoginController {
@@ -28,8 +31,7 @@ public class LoginController {
         if (result.hasErrors()) {
             return "login";
         }
-
-        userService.saveUser(user);
+       userService.saveUser(user);
         redirectAttributes.addFlashAttribute("success", true);
         return "redirect:/list";
     }
