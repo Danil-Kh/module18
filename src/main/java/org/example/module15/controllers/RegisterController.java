@@ -1,6 +1,5 @@
 package org.example.module15.controllers;
 
-import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.example.module15.entities.User;
 import org.example.module15.services.UserService;

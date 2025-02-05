@@ -41,11 +41,13 @@
 </head>
 <body>
 <div class="form-container">
-
     <form action="/createNote" method="post">
         <div class="mb-3">
             <label for="title" class="form-label">Title</label>
-            <input type="text" class="form-control" id="title" name="title" placeholder="Enter title">
+            <input type="text" class="form-control" id="title" name="title" placeholder="Enter title" th:classappend="${invalidNote} ? 'is-invalid'" required>
+            <div class="invalid-feedback" th:if="${invalidNote}">
+                <span th:text="${invalidNote != null ? invalidNote : ''}"></span>
+            </div>
         </div>
         <div class="mb-3">
             <label for="content" class="form-label">Content</label>
@@ -81,7 +83,6 @@
     </table>
 </div>
 
-<!-- Кнопка Edit -->
 <div>
     <form action="/editPages" method="get">
         <div th:if="${action != null and action.equals('list')}">

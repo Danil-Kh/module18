@@ -2,7 +2,7 @@ package org.example.module15.mock;
 
 import org.example.module15.entities.Note;
 import org.example.module15.entities.User;
-import org.example.module15.exceptions.UnableAddNote;
+import org.example.module15.exceptions.FailedCreateNoteException;
 import org.example.module15.repositories.NoteRepository;
 import org.example.module15.services.NoteService;
 import org.example.module15.services.UserService;
@@ -41,8 +41,7 @@ class NoteServiceTest {
 
         when(userService.findByUserName(username)).thenReturn(mockUser);
 
-
-        noteService.addNote(inputNote, username);
+        noteService.addNote(username, inputNote.getTitle(), inputNote.getContent());
 
         verify(userService).findByUserName(username);
 
@@ -61,10 +60,10 @@ class NoteServiceTest {
         inputNote.setTitle("");
         inputNote.setContent("Test Content");
 
-        UnableAddNote exception = assertThrows(
-                UnableAddNote.class, () -> noteService.addNote(inputNote, "testUser")
+        FailedCreateNoteException exception = assertThrows(
+                FailedCreateNoteException.class, () -> noteService.addNote("testUser", "", "Test Content")
         );
-        assertEquals("Note title is blank", exception.getMessage());
+        assertEquals("Unable to save note with empty title", exception.getMessage());
 
 
         verifyNoInteractions(noteRepository);

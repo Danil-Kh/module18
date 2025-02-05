@@ -18,21 +18,32 @@
           <form th:action="@{/login}" th:object="${user}" method="post" class="needs-validation" novalidate>
             <div class="mb-3">
               <label for="username" class="form-label">Username</label>
-              <input type="text" id="username" th:field="*{username}" class="form-control" required>
-              <div class="text-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+              <div class="input-group has-validation">
+                <input type="text" id="username" th:field="*{username}" class="form-control"
+                       th:classappend="${invalidFeedbackK} ? 'is-invalid'" required>
+                <div class="invalid-feedback" th:if="${invalidFeedbackK}">
+                  <span th:text="${invalidFeedbackK}"></span>
+                </div>
+              </div>
             </div>
             <div class="mb-3">
               <label for="password" class="form-label">Password</label>
-              <input type="password" id="password" th:field="*{password}" class="form-control" required>
-              <div class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+              <input type="password" id="password" th:field="*{password}" class="form-control"
+                     th:classappend="${invalidPasswordLogin} ? 'is-invalid'" required>
+              <div class="invalid-feedback" th:if="${invalidPasswordLogin}">
+                <span th:text="${invalidPasswordLogin}"></span>
+              </div>
             </div>
             <div class="d-grid">
               <button type="submit" class="btn btn-primary">Login</button>
             </div>
           </form>
           <div class="mt-3">
-            <div class="alert alert-success text-center" th:if="${param.success}">
-              Registration successful!
+            <div class="alert alert-danger text-center" th:if="${param.error}">
+              Invalid username or password!
+            </div>
+            <div class="alert alert-success text-center" th:if="${param.logout}">
+              You have been logged out successfully.
             </div>
           </div>
         </div>

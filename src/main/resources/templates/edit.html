@@ -32,9 +32,11 @@
             </tr>
             </tbody>
         </table>
-
+        <div id="editForm" class="d-none">
         <div class="mb-3">
-            <input type="text" class="form-control" id="titleText" name="title" placeholder="Title">
+            <!--/*@thymesVar id="invalidNote" type="java"*/-->
+            <input type="text" class="form-control" id="titleText" name="title" placeholder="Title" th:classappend="${invalidNote} ? 'is-invalid'" required>
+          
         </div>
         <div class="mb-3">
             <textarea class="form-control" id="contentText" name="content" placeholder="Content" rows="5"></textarea>
@@ -44,6 +46,7 @@
             <button type="submit" formaction="/edit" class="btn btn-success">Save</button>
             <button type="submit" formaction="/delete" class="btn btn-danger">Delete</button>
         </div>
+        </div>
     </form>
 </div>
 
@@ -52,11 +55,14 @@
         const titleInput = document.getElementById('titleText');
         const contentTextarea = document.getElementById('contentText');
         const noteId = row.getAttribute('data-note-id');
+        const editForm = document.getElementById('editForm');
 
         titleInput.value = row.cells[0]?.textContent.trim() || '';
         contentTextarea.value = row.cells[1]?.textContent.trim() || '';
-
         document.getElementById('noteId').value = noteId;
+
+
+        editForm.classList.remove('d-none');
     }
 </script>
 </body>
