@@ -41,6 +41,8 @@ A Spring Boot application that provides a web-based note-taking system with user
 
 **HTML/CSS**- to create a beautiful user interface
 
+**JavaScript**- for creating logic on the frontend
+
 ## API Endpoints
 
 **Authentication**
